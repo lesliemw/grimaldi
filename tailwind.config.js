@@ -6,11 +6,16 @@ module.exports = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    fontFamily: {
+      logoFont: ["Diphylleia", "serif"],
+      themeFont: ["Inconsolata", "monospace"],
+    },
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      height: {
+        screen: "100dvh",
+      },
+      width: {
+        screen: "100dvw",
       },
     },
   },
