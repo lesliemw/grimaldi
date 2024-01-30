@@ -3,13 +3,14 @@
 import { RxHamburgerMenu } from "react-icons/rx";
 import { IoBagHandleOutline } from "react-icons/io5";
 
-// import SearchBar from "./SearchBar";
 // import CartPopper from "../cart/CartPopper";
 // import { useIsOpen } from "../context/IsOpenContext";
 // import Sidebar from "./Sidebar";
-// import AccountDropdownMenu from "../accounts/AccountDropdownMenu";
-import Image from "next/image";
+
 import Link from "next/link";
+import SearchBar from "./SearchBar";
+import AccountDropdownMenu from "@components/accounts/AccountDropdownMenu";
+// import CartPopper from "@components/cart/CartPopper";
 
 function Header() {
   // const { isOpenCart, isOpenCartToggle } = useIsOpen();
@@ -20,28 +21,26 @@ function Header() {
       <div className="flex items-center ml-5 cursor-pointer ">
         <RxHamburgerMenu className="m-2 text-sm md:text-md lg:text-2xl" />
         <span>Menu</span>
-        {/* {isOpenSidebar && <Sidebar />}
-        {window.innerWidth > 600 && <SearchBar />} */}
+        {/* {isOpenSidebar && <Sidebar />} */}
+        <SearchBar />
       </div>
       <div>
-        <Link href="/">
-          <Image
+        <Link href="/home">
+          <img
             className="lg:w-80 w-52  max-h-24 "
             src="/images/fullBranding.png"
-            width={52}
-            height={52}
             alt=""
           />
         </Link>
       </div>
       <div className="flex sm:mr-5 ">
-        {/* <AccountDropdownMenu /> */}
+        <AccountDropdownMenu />
 
         <button className="flex sm:p-2 items-center">
           <IoBagHandleOutline className="md:m-2 text-xl md:text-md lg:text-2xl" />
           <span className="invisible sm:visible">Cart</span>
         </button>
-        {/* {isOpenCart && <CartPopper />} */}
+        {/* <CartPopper /> */}
       </div>
     </header>
   );
