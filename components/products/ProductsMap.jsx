@@ -1,3 +1,4 @@
+import fakeData from "@components/fakeStore";
 import ProductCard from "./ProductCard";
 
 function ProductsMap() {
@@ -9,10 +10,10 @@ function ProductsMap() {
         </h2>
         <div className="grid grid-rows-1 w-auto  content-center p-3 ">
           <div className="mt-6 grid grid-cols-1 gap-x-16  gap-y-20 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8 ">
-            {products?.map((product, i) => (
+            {fakeData.map((product) => (
               <ProductCard
-                key={product._id || i}
-                productId={product._id}
+                key={product.id}
+                productId={product.id}
                 description={product.description}
                 alt={product.alt}
                 name={product.name}

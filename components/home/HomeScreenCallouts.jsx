@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const callouts = [
   {
     name: "Women's Fashion",
@@ -48,14 +50,18 @@ function HomeScreenCallouts() {
         <div className="mx-auto max-w-2xl py-16 sm:py-24 lg:max-w-none lg:py-32">
           <h2 className="text-2xl font-bold text-gray-900">Shop by Category</h2>
 
-          <div className="mt-6 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 gap-y-14 lg:space-y-0">
+          <div className="mt-6 space-y-12 md:grid md:grid-cols-2 items-center lg:grid-cols-3 md:gap-x-6 gap-y-14 md:space-y-0">
             {callouts.map((callout) => (
               <div key={callout.name} className="group relative">
                 <div className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64">
-                  <img
+                  <Image
                     src={callout.image}
                     alt={callout.alt}
-                    className="h-full w-full object-fit object-center"
+                    placeholder="blur"
+                    width={500}
+                    height={500}
+                    blurDataURL={"/img/logo.png"}
+                    className="h-full w-full object-fill object-center"
                   />
                 </div>
                 <h3 className="mt-6 text-sm text-gray-500">

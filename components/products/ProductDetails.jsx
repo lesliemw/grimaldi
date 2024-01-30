@@ -1,26 +1,29 @@
+import Image from "next/image";
 import AddToCartButton from "../ui/AddToCartButton";
 import HeartButton from "../ui/HeartButton";
 
-function ProductDetails() {
+function ProductDetails({ alt, src, name, description }) {
   return (
     <section className="text-gray-700 font-themeFont overflow-hidden bg-white">
       <>
         <div className="container px-5 py-24 mx-auto">
           <div className="lg:w-4/5 mx-auto flex flex-wrap">
-            <img
-              alt={product.name}
+            <Image
+              alt={alt}
               className="lg:w-1/2 w-full object-cover object-center"
-              src={product.image}
+              src={src}
+              height={500}
+              width={500}
             />
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-20">
-              <h2 className="text-sm title-font text-gray-500 tracking-widest">
-                {product.category}
-              </h2>
+              {/* <h2 className="text-sm title-font text-gray-500 tracking-widest">
+                {category}
+              </h2> */}
               <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-                {product.name}
+                {name}
               </h1>
 
-              <p className="leading-relaxed">{product.description}</p>
+              <p className="leading-relaxed">{description}</p>
               <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
                 {/* <div className="flex">
                     <span className="mr-3"></span>
@@ -33,7 +36,7 @@ function ProductDetails() {
                     <span className="mr-3">Size</span>
                     <select
                       className="rounded border appearance-none border-gray-200 py-2 focus:outline-none  text-base pl-3 pr-10"
-                      value={size}
+                      // value={size}
                     >
                       <option value="SM">SM</option>
                       <option value="MD">M</option>
@@ -47,8 +50,8 @@ function ProductDetails() {
                       <button className=" hover:text-gray-700">-</button>
                       <input
                         className="w-12 px-2 justify-center  text-center border-0 rounded-md    "
-                        value={qty}
-                        placeholder={qty}
+                        // value={qty}
+                        // placeholder={qty}
                       />
                       <button className=" hover:text-gray-700">+</button>
                     </div>
@@ -57,7 +60,8 @@ function ProductDetails() {
               </div>
               <div className="flex justify-between">
                 <span className="title-font font-medium text-2xl text-gray-900">
-                  € {product.price * qty}
+                  €250
+                  {/* € {price * qty} */}
                 </span>
                 <div className="flex gap-4">
                   <HeartButton />

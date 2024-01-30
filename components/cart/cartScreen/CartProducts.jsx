@@ -1,3 +1,4 @@
+import Image from "next/image";
 import QuantityCounter from "../ui/QuantityCounter";
 
 function CartProducts() {
@@ -8,9 +9,11 @@ function CartProducts() {
           <div className="flex flex-wrap items-center -mx-4">
             <div className="w-full px-4 mb-3 md:w-1/3">
               <div className="w-full h-96 md:h-24 md:w-24">
-                <img
+                <Image
                   src="https://xcdn.next.co.uk/Common/Items/Default/Default/ItemImages/AltItemShot/315x472/Q42709s.jpg"
                   alt="alt"
+                  height={500}
+                  width={500}
                   className="object-cover w-full h-full"
                 />
               </div>

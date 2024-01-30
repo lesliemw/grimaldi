@@ -1,16 +1,19 @@
 import HeartButton from "../ui/HeartButton";
 import AddToCartButton from "../ui/AddToCartButton";
 import Link from "next/link";
+import Image from "next/image";
 
 function ProductCard({ src, name, description, price, productId }) {
   return (
     <div>
-      <Link to={`/items/${productId}`}>
+      <Link href={`/products/${productId}`}>
         <div className="relative ">
           <div className=" w-full overflow-hidden rounded-md group-hover:opacity-75 lg:h-80 ">
-            <img
+            <Image
               src={src}
               alt={name}
+              height={500}
+              width={500}
               className="h-full w-full object-fill object-center lg:h-full lg:w-full"
             />
           </div>

@@ -1,10 +1,14 @@
+import Image from "next/image";
+
 function CartItem({ image, alt, href, price, color, qty, name, size }) {
   return (
     <li className="flex py-6">
       <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-        <img
+        <Image
           src={image}
           alt={alt}
+          height={500}
+          width={500}
           className="h-full w-full object-cover object-center"
         />
       </div>

@@ -11,7 +11,7 @@ function RootLayout({ children }) {
   return (
     <html lang="en">
       <Header />
-      <main className="app">{children}</main>
+      <body className="app">{children}</body>
       <Footer />
     </html>
   );
