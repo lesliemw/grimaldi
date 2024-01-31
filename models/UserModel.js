@@ -4,8 +4,12 @@ const UserSchema = new mongoose.Schema(
   {
     fname: String,
     lname: String,
-    email: { type: String, unique: true },
-    password: String,
+    email: {
+      type: String,
+      unique: [true, "An account with this username already exists. "],
+      required: true,
+    },
+    password: { type: String, required: true },
     streetAddress: String,
     city: String,
     county: String,
@@ -15,6 +19,6 @@ const UserSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const User = mongoose.models.users || mongoose.model("users", UserSchema);
+const User = mongoose.models.User || mongoose.model("User", UserSchema);
 
 export default User;

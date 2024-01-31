@@ -12,8 +12,7 @@
 <li>bcrypt</li>
 <li>Stripe</li>
 <li>express</li>
-<li>redux toolkit</li>
-<li>RTK Query</li>
+<li>NextAuth</li>
 
 </ul>
 

@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 
-export default function SignInScreen() {
+export default function Login() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
 

@@ -57,10 +57,8 @@ function HomeScreenCallouts() {
                   <Image
                     src={callout.image}
                     alt={callout.alt}
-                    placeholder="blur"
                     width={500}
                     height={500}
-                    blurDataURL={"/img/logo.png"}
                     className="h-full w-full object-fill object-center"
                   />
                 </div>

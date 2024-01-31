@@ -33,7 +33,9 @@ function Footer() {
                 type="email"
                 className="w-full px-2 py-4 mr-2 h-10  bg-gray-100 shadow-inner rounded-md border border-gray-400 focus:outline-indigo-500"
                 required
+                name="email"
                 value={email}
+                autoComplete="on"
                 onChange={(e) => setEmail(e.target.value)}
               />
               <button
