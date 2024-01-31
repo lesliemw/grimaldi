@@ -25,7 +25,7 @@ function Header() {
         <SearchBar />
       </div>
       <div>
-        <Link href="/home">
+        <Link href="/">
           <img
             className="lg:w-80 w-52  max-h-24 "
             src="/images/fullBranding.png"

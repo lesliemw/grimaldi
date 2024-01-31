@@ -18,7 +18,7 @@ function Footer() {
   }
 
   return (
-    <footer className="bg-gray-50 font-themeFont w-full py-6 px-4 my-32 bottom-0">
+    <footer className="bg-gray-50 font-themeFont w-full py-6 px-4  bottom-0">
       <div className="px-4 pt-3 pb-4  -mx-4 ">
         <div className="max-w-xl mx-auto">
           <h2 className="text-xl text-left inline-block font-semibold text-gray-800">
