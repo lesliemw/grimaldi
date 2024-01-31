@@ -1,14 +1,18 @@
-// import CartSummary from "./CartSummary";
 import CartItem from "./CartItem";
 
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { HiXMark } from "react-icons/hi2";
 import Link from "next/link";
+import fakeData from "@components/fakeStore";
 
-export default function CartPopper() {
+export default function CartPopper({
+  isOpenCart,
+  setIsOpenCart,
+  isOpenCartToggle,
+}) {
   return (
-    <Transition.Root show={true} as={Fragment}>
+    <Transition.Root show={isOpenCart} onClose={isOpenCartToggle} as={Fragment}>
       <Dialog as="div" className="relative z-20">
         <Transition.Child
           as={Fragment}
@@ -44,6 +48,7 @@ export default function CartPopper() {
                         <div className="ml-3 flex h-7 items-center">
                           <button
                             type="button"
+                            onClick={isOpenCartToggle}
                             className="relative -m-2 p-2 text-gray-400 hover:text-gray-500"
                           >
                             <span className="absolute -inset-0.5" />
@@ -54,28 +59,27 @@ export default function CartPopper() {
                       </div>
 
                       <div className="mt-8">
-                        {/* {cartItems.length ? ( */}
-                        <div className="flow-root">
-                          <ul
-                            role="list"
-                            className="-my-6 divide-y divide-gray-200"
-                          >
-                            {cartItems?.map((product, i) => (
-                              <CartItem
-                                key={i}
-                                product={product}
-                                image={product.image}
-                                alt={product.alt}
-                                name={product.name}
-                                size={product.size}
-                                price={product.price * product.qty}
-                                qty={product.qty}
-                                removeItemFromCart={removeItemFromCart}
-                              />
-                            ))}
-                          </ul>
-                        </div>
-                        {/* ) : (
+                        {fakeData.length ? (
+                          <div className="flow-root">
+                            <ul
+                              role="list"
+                              className="-my-6 divide-y divide-gray-200"
+                            >
+                              {fakeData?.map((product, i) => (
+                                <CartItem
+                                  key={i}
+                                  product={product}
+                                  image={product.image}
+                                  alt={product.alt}
+                                  name={product.name}
+                                  size={product.size}
+                                  price={product.price}
+                                  qty={product.qty || 1}
+                                />
+                              ))}
+                            </ul>
+                          </div>
+                        ) : (
                           <>
                             <h1 className="text-center font-semibold">
                               Nothing to see here 😢
@@ -84,7 +88,7 @@ export default function CartPopper() {
                               Continue shopping by clicking the button below.
                             </p>
                           </>
-                        )} */}
+                        )}
                       </div>
                     </div>
 
@@ -109,6 +113,7 @@ export default function CartPopper() {
                           or {""}
                           <button
                             type="button"
+                            onClick={isOpenCartToggle}
                             className="font-medium text-indigo-500 hover:text-indigo-600"
                           >
                             Continue Shopping

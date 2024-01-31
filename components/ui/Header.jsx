@@ -3,25 +3,40 @@
 import { RxHamburgerMenu } from "react-icons/rx";
 import { IoBagHandleOutline } from "react-icons/io5";
 
-// import CartPopper from "../cart/CartPopper";
-// import { useIsOpen } from "../context/IsOpenContext";
-// import Sidebar from "./Sidebar";
-
 import Link from "next/link";
+import { useState } from "react";
 import SearchBar from "./SearchBar";
 import AccountDropdownMenu from "@components/accounts/AccountDropdownMenu";
-// import CartPopper from "@components/cart/CartPopper";
+import CartPopper from "@components/cart/CartPopper";
+import Sidebar from "./Sidebar";
 
 function Header() {
-  // const { isOpenCart, isOpenCartToggle } = useIsOpen();
-  // const { isOpenSidebar, isOpenSidebarToggle } = useIsOpen();
+  const [isOpenCart, setIsOpenCart] = useState(false);
+  const [isOpenSidebar, setIsOpenSidebar] = useState(false);
+
+  function isOpenCartToggle() {
+    setIsOpenCart(() => !isOpenCart);
+  }
+
+  function isOpenSidebarToggle() {
+    setIsOpenSidebar(!isOpenSidebar);
+  }
 
   return (
     <header className="grid grid-cols-3 w-full lg:p-3 p-1  items-center font-themeFont font-extralight bg-white fixed top-0 z-10 justify-items-center">
       <div className="flex items-center ml-5 cursor-pointer ">
-        <RxHamburgerMenu className="m-2 text-sm md:text-md lg:text-2xl" />
+        <RxHamburgerMenu
+          className="m-2 text-sm md:text-md lg:text-2xl"
+          onClick={isOpenSidebarToggle}
+        />
         <span>Menu</span>
-        {/* {isOpenSidebar && <Sidebar />} */}
+        {isOpenSidebar && (
+          <Sidebar
+            isOpenSidebar={isOpenSidebar}
+            setIsOpenSidebar={setIsOpenSidebar}
+            isOpenSidebarToggle={isOpenSidebarToggle}
+          />
+        )}
         <SearchBar />
       </div>
       <div>
@@ -36,11 +51,17 @@ function Header() {
       <div className="flex sm:mr-5 ">
         <AccountDropdownMenu />
 
-        <button className="flex sm:p-2 items-center">
+        <button onClick={isOpenCartToggle} className="flex sm:p-2 items-center">
           <IoBagHandleOutline className="md:m-2 text-xl md:text-md lg:text-2xl" />
           <span className="invisible sm:visible">Cart</span>
         </button>
-        {/* <CartPopper /> */}
+        {isOpenCart && (
+          <CartPopper
+            setIsOpenCart={setIsOpenCart}
+            isOpenCart={isOpenCart}
+            isOpenCartToggle={isOpenCartToggle}
+          />
+        )}
       </div>
     </header>
   );

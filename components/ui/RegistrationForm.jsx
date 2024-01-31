@@ -1,27 +1,38 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 import axios from "axios";
-import toast from "react-hot-toast";
 
 export default function RegistrationForm() {
-  const [fname, setFName] = useState("");
-  const [lname, setLName] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
+  const router = useRouter();
 
-  async function handelRegisterSubmit(e) {
-    e.preventDefault();
+  const [user, setUser] = useState({
+    fname: "",
+    lname: "",
+    password: "",
+    email: "",
+  });
+
+  async function register() {
     try {
-      await axios.post("/user/register", {
-        fname,
-        lname,
-        email,
-        password,
-      });
-      toast.success("Registration successful. Now you can log in");
-    } catch (e) {
-      toast.error("Registration failed. Please try again later");
+      const response = await axios.post("/api/user/register", user);
+      console.log(response);
+
+      toast.success("Registration successful. You can now login.");
+      router.push("/");
+      return response.json();
+    } catch (error) {
+      toast.error(
+        "Could not complete registration. Please check your details and try again."
+      );
+      throw new Error();
     }
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    register();
   }
 
   return (
@@ -34,10 +45,10 @@ export default function RegistrationForm() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" onSubmit={handelRegisterSubmit}>
+          <form className="space-y-6">
             <div>
               <label
-                htmlFor="text"
+                htmlFor="fname"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
                 First Name
@@ -46,17 +57,17 @@ export default function RegistrationForm() {
                 <input
                   id="fname"
                   name="fname"
-                  value={fname}
+                  value={user.fname}
                   type="text"
                   required
-                  onChange={(e) => setFName(e.target.value)}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  onChange={(e) => setUser({ ...user, fname: e.target.value })}
+                  className="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
             <div>
               <label
-                htmlFor="text"
+                htmlFor="lname"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
                 Last name
@@ -65,11 +76,11 @@ export default function RegistrationForm() {
                 <input
                   id="lname"
                   name="lname"
-                  value={lname}
+                  value={user.lname}
                   type="text"
                   required
-                  onChange={(e) => setLName(e.target.value)}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  onChange={(e) => setUser({ ...user, lname: e.target.value })}
+                  className="block w-full rounded-md px-3 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -84,12 +95,12 @@ export default function RegistrationForm() {
                 <input
                   id="email"
                   name="email"
+                  value={user.email}
                   type="email"
-                  value={email}
                   autoComplete="email"
                   required
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  onChange={(e) => setUser({ ...user, email: e.target.value })}
+                  className="block w-full px-3 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -107,12 +118,14 @@ export default function RegistrationForm() {
                 <input
                   id="password"
                   name="password"
+                  value={user.password}
                   type="password"
-                  value={password}
                   autoComplete="current-password"
                   required
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  onChange={(e) =>
+                    setUser({ ...user, password: e.target.value })
+                  }
+                  className="block w-full px-3 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -120,6 +133,7 @@ export default function RegistrationForm() {
             <div>
               <button
                 type="submit"
+                onSubmit={handleSubmit}
                 className="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Sign up

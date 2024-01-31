@@ -5,7 +5,7 @@ import { GoPerson } from "react-icons/go";
 import { IoIosLogOut, IoIosLogIn } from "react-icons/io";
 import Link from "next/link";
 
-function Sidebar() {
+function Sidebar({ isOpenSidebar, setIsOpenSidebar, isOpenSidebarToggle }) {
   return (
     <Transition.Root
       show={isOpenSidebar}
@@ -47,6 +47,7 @@ function Sidebar() {
                         <div className="ml-3 flex h-7 items-center">
                           <button
                             type="button"
+                            onClick={isOpenSidebarToggle}
                             className="relative -m-2 p-2 text-gray-400 hover:text-gray-500"
                           >
                             <span className="absolute -inset-0.5" />
@@ -96,14 +97,14 @@ function Sidebar() {
                         </div>
                       </div>
                     </div>
-                    <Link href="/login" onClick={handleClose}>
+                    <Link href="/login" onClick={isOpenSidebarToggle}>
                       <button className="flex items-center ml-3">
                         <GoPerson className="m-2 text-sm md:text-md lg:text-2xl" />
                         <span>Account Details</span>
                       </button>
                     </Link>
 
-                    <Link>
+                    <Link href="/">
                       <button className="flex ml-3 items-center">
                         <IoIosLogOut className="m-3 text-sm md:text-md lg:text-2xl" />
                         <span>Sign Out</span>
