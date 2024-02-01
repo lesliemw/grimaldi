@@ -1,6 +1,9 @@
+"use client";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 
 export default function AccountDetails() {
+  const { data: session } = useSession();
   return (
     <div className="my-40 font-themeFont flex justify-center w-full	">
       <div className="space-y-12 ">
@@ -13,88 +16,97 @@ export default function AccountDetails() {
             <div className="sm:col-span-2">
               <label
                 htmlFor="first-name"
+                id="first-name"
                 className="block text-xs font-medium leading-6 text-gray-900"
               >
                 Name
               </label>
               <div className="mt-2">
-                <h2>Leslie Williams</h2>
+                <h2>
+                  {session?.user?.fname} {session?.user?.lname}
+                </h2>
               </div>
             </div>
 
             <div className="sm:col-span-4">
               <label
                 htmlFor="email"
+                id="email"
                 className="block text-xs font-medium leading-6 text-gray-900"
               >
                 Email address
               </label>
               <div className="mt-2">
-                <h4>l.marie1598@gmail.com</h4>
+                <h4>{session?.user?.email}</h4>
               </div>
             </div>
 
             <div className="col-span-full">
               <label
                 htmlFor="street-address"
+                id="street-address"
                 className="block text-xs font-medium leading-6 text-gray-900"
               >
                 Street address
               </label>
               <div className="mt-2">
-                <h4>173 Berryridge Avenue</h4>
+                <h4>{session?.user?.streetAddress}</h4>
               </div>
             </div>
 
             <div className="sm:col-span-2 sm:col-start-1">
               <label
                 htmlFor="city"
+                id="city"
                 className="block text-xs font-medium leading-6 text-gray-900"
               >
                 City
               </label>
               <div className="mt-2">
-                <h4>Portlaoise</h4>
+                <h4>{session?.user?.city}</h4>
               </div>
             </div>
 
             <div className="sm:col-span-2">
               <label
                 htmlFor="region"
+                id="region"
                 className="block text-xs font-medium leading-6 text-gray-900"
               >
                 County / Province
               </label>
               <div className="mt-2">
-                <h4>Laois</h4>
+                <h4>{session?.user?.county}</h4>
               </div>
             </div>
 
             <div className="sm:col-span-2">
               <label
                 htmlFor="postal-code"
+                id="postal-code"
                 className="block text-xs font-medium leading-6 text-gray-900"
               >
                 Postal code
               </label>
               <div className="mt-2">
-                <h4>R32 THK2</h4>
+                <h4>{session?.user?.postalCode}</h4>
               </div>
             </div>
           </div>
           <div className="sm:col-span-3 mt-2">
             <label
               htmlFor="country"
+              id="country"
               className="block text-xs font-medium leading-6 text-gray-900"
             >
               Country
             </label>
             <div className="mt-2">
-              <h4>Ireland</h4>
+              <h4>{session?.user?.country}</h4>
             </div>
           </div>
           <div className="m-6 flex items-center justify-end gap-x-6 ">
-            <Link to="/account/updateAccountDetails">
+            <Link href="/account/updateAccountDetails">
               <button
                 type="submit"
                 className="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
@@ -219,7 +231,7 @@ export default function AccountDetails() {
             </fieldset>
           </div>
           <div className="m-6 flex items-center justify-end gap-x-6 ">
-            <Link to="/account/updateAccountDetails">
+            <Link href="/account/updateAccountDetails">
               <button
                 type="submit"
                 className="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"

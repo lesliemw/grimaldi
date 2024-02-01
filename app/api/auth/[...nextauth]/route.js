@@ -1,21 +1,41 @@
+import { connectDb } from "@dbConfig/db";
+import User from "@models/UserModel";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from "bcryptjs";
 
 const auth = NextAuth({
   providers: [
     CredentialsProvider({
       name: "credentials",
-      credentials: {
-        email: {},
-        password: {},
-      },
+      credentials: {},
       async authorize(credentials, req) {
-        const user = { id: "1", email: "jsmith@example.com" };
+        const {
+          email,
+          password,
+          fname,
+          lname,
+          streetAddress,
+          city,
+          county,
+          country,
+          postalCode,
+        } = credentials;
+        try {
+          await connectDb();
+          const user = await User.findOne({ email });
 
-        if (user) {
+          if (!user) {
+            return null;
+          }
+
+          const passwordMatch = bcrypt.compareSync(password, user.password);
+          if (!passwordMatch) {
+            return null;
+          }
           return user;
-        } else {
-          return null;
+        } catch (error) {
+          console.log("Error:", error);
         }
       },
     }),
@@ -25,7 +45,7 @@ const auth = NextAuth({
   },
   secret: process.env.NEXT_AUTH_SECRET,
   pages: {
-    login: "/",
+    signIn: "/user/login",
   },
 });
 

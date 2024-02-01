@@ -2,6 +2,7 @@ import Footer from "@components/ui/Footer";
 import Header from "@components/ui/Header";
 import { Toaster } from "react-hot-toast";
 import "@styles/globals.css";
+import { AuthProvider } from "./Providers";
 
 export const metadata = {
   title: "Grimaldi & Co.",
@@ -33,7 +34,7 @@ function RootLayout({ children }) {
             },
           }}
         />
-        {children}
+        <AuthProvider>{children}</AuthProvider>
         <Footer />
       </body>
     </html>
