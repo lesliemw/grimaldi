@@ -1,11 +1,12 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import toast from "react-hot-toast";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
+  const router = useRouter();
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
 
@@ -16,15 +17,19 @@ export default function Login() {
       const res = await signIn("credentials", {
         email,
         password,
-        redirect: true,
+        redirect: false,
       });
       if (res.error) {
         toast.error(
-          "Looks like something went wrong. Please check you details and try again."
+          "Looks like something went wrong. Please check your details and try again."
         );
       } else {
-        toast.success("You are now logged in.");
-        redirect("/app/home");
+        if (res.url) {
+          toast.success("You are now logged in.");
+          console.log(res.url);
+          router.push("/");
+        }
+        return res;
       }
     } catch (error) {
       console.log(error);

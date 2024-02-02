@@ -1,13 +1,29 @@
+"use client";
 import { GoPerson } from "react-icons/go";
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import Link from "next/link";
+import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 function AccountDropdownMenu() {
+  const router = useRouter();
+  const { data: session } = useSession();
+
+  function handleSignOut() {
+    console.log("signed out");
+    signOut();
+    router.push("/");
+  }
+
+  function goToLoginPage() {
+    router.push("/user/login");
+  }
+
   return (
     <Menu as="div" className="relative inline-block  font-extralight text-left">
       <div>
@@ -68,21 +84,19 @@ function AccountDropdownMenu() {
               )}
             </Menu.Item>
 
-            <form method="POST">
-              <Menu.Item>
-                {({ active }) => (
-                  <Link
-                    className={classNames(
-                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                      "block w-full px-4 py-2 text-left text-sm"
-                    )}
-                    href="/login"
-                  >
-                    Sign In
-                  </Link>
-                )}
-              </Menu.Item>
-            </form>
+            <Menu.Item>
+              {({ active }) => (
+                <button
+                  className={classNames(
+                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                    "block w-full px-4 py-2 text-left text-sm"
+                  )}
+                  onClick={session ? handleSignOut : goToLoginPage}
+                >
+                  {session ? "Sign Out" : "Sign In"}
+                </button>
+              )}
+            </Menu.Item>
           </div>
         </Menu.Items>
       </Transition>

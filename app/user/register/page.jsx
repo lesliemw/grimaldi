@@ -1,12 +1,14 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import axios from "axios";
+import Link from "next/link";
 
 export default function RegistrationForm() {
   const router = useRouter();
 
+  const [error, setError] = useState(false);
   const [user, setUser] = useState({
     fname: "",
     lname: "",
@@ -14,27 +16,41 @@ export default function RegistrationForm() {
     email: "",
   });
 
+  useEffect(() => {
+    if (!user.fname || !user.lname || !user.email || !user.password) {
+      setError(true);
+    } else {
+      setError(false);
+    }
+  }, [setError, user.email, user.password, user.fname, user.lname]);
+
   async function register() {
     try {
-      const response = await axios.post("/api/user/register", user, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios.post("/api/user/register", user);
 
-      toast.success("Registration successful. You can now login.");
-      router.push("/");
-      return response.data;
+      const userInfo = await response.data;
+      if (userInfo.status === 201) {
+        toast.success("Registration successful. You can now login.");
+        router.push("/");
+      }
+      if (userInfo.status === 500) {
+        toast.error("An account with this email already exists. Please login.");
+      }
+      console.log(userInfo.status);
+      return userInfo;
     } catch (error) {
-      toast.error(
-        "Could not complete registration. Please check your details and try again."
-      );
+      if (error) {
+        toast.error(
+          "Could not complete registration. Please check your details and try again."
+        );
+      }
       throw new Error(error);
     }
   }
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    register();
+    console.log(user);
+    await register();
   }
 
   return (
@@ -135,10 +151,17 @@ export default function RegistrationForm() {
             <div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                disabled={error}
+                className="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-600 focus-visible:outline focus-visible:outline-2 disabled:cursor-not-allowed focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Sign up
               </button>
+              <p className="mt-2">
+                Already have an account?{" "}
+                <span className="text-indigo-400 hover:text-indigo-500">
+                  <Link href="/user/login">Sign in here</Link>
+                </span>
+              </p>
             </div>
           </form>
         </div>

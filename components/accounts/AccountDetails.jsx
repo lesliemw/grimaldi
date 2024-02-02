@@ -1,9 +1,9 @@
-"use client";
-import { useSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
 import Link from "next/link";
+import { options } from "@app/api/auth/[...nextauth]/options";
 
-export default function AccountDetails() {
-  const { data: session } = useSession();
+export default async function AccountDetails() {
+  const session = await getServerSession(options);
   return (
     <div className="my-40 font-themeFont flex justify-center w-full	">
       <div className="space-y-12 ">

@@ -1,9 +1,7 @@
 import { connectDb } from "@dbConfig/db";
 import User from "@models/UserModel";
-import bcryptjs from "bcryptjs";
+import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
-
-connectDb();
 
 export async function POST(req) {
   try {
@@ -11,17 +9,25 @@ export async function POST(req) {
 
     const { fname, lname, email, password } = data;
 
+    connectDb();
+
     const user = await User.findOne({ email });
 
+    if (!data) {
+      return NextResponse.json({
+        status: 401,
+        error: "Please fill in all details",
+      });
+    }
+
     if (user) {
-      return NextResponse.json(
+      return new NextResponse.json(
         { status: 400 },
         { error: "User already exists" }
       );
     } else {
       //hash password
-      const salt = await bcryptjs.genSalt(10);
-      const hashedPassword = await bcryptjs.hash(password, salt);
+      const hashedPassword = await bcrypt.hash(password, 10);
 
       const newUser = await User.create({
         fname,

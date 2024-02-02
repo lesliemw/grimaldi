@@ -4,8 +4,24 @@ import { HiXMark } from "react-icons/hi2";
 import { GoPerson } from "react-icons/go";
 import { IoIosLogOut, IoIosLogIn } from "react-icons/io";
 import Link from "next/link";
+import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 function Sidebar({ isOpenSidebar, setIsOpenSidebar, isOpenSidebarToggle }) {
+  const { data: session } = useSession();
+  const router = useRouter();
+
+  function handleSignOut() {
+    console.log("signed out");
+    signOut();
+    router.push("/");
+  }
+
+  function goToLoginPage() {
+    router.push("/user/login");
+    setIsOpenSidebar(false);
+  }
+
   return (
     <Transition.Root
       show={isOpenSidebar}
@@ -97,19 +113,24 @@ function Sidebar({ isOpenSidebar, setIsOpenSidebar, isOpenSidebarToggle }) {
                         </div>
                       </div>
                     </div>
-                    <Link href="/login" onClick={isOpenSidebarToggle}>
+                    <Link href="/account" onClick={isOpenSidebarToggle}>
                       <button className="flex items-center ml-3">
                         <GoPerson className="m-2 text-sm md:text-md lg:text-2xl" />
                         <span>Account Details</span>
                       </button>
                     </Link>
 
-                    <Link href="/">
-                      <button className="flex ml-3 items-center">
+                    <button
+                      className="flex ml-3 items-center"
+                      onClick={session ? handleSignOut : goToLoginPage}
+                    >
+                      {session ? (
                         <IoIosLogOut className="m-3 text-sm md:text-md lg:text-2xl" />
-                        <span>Sign Out</span>
-                      </button>
-                    </Link>
+                      ) : (
+                        <IoIosLogIn className="m-3 text-sm md:text-md lg:text-2xl" />
+                      )}
+                      <span>{session ? "Sign Out" : "Sign In"}</span>
+                    </button>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>

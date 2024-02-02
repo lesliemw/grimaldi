@@ -1,6 +1,22 @@
+"use client";
+// import toast from "react-hot-toast";
+
 export default function UpdateAccountDetails() {
+  function handleSubmit(e) {
+    // e.preventDefault();
+    // toast.promise(saveSettings(settings), {
+    //   loading: "Saving...",
+    //   success: <b>Account details updated!</b>,
+    //   error: <b>Something went wrong, please try again.</b>,
+    // });
+  }
+
   return (
-    <form className="m-40 place-center font-themeFont w-auto" method="PATCH">
+    <form
+      className="m-40 place-center font-themeFont w-auto"
+      method="PATCH"
+      onSubmit={handleSubmit}
+    >
       <div className="space-y-12 ">
         <div className="border-b border-gray-900/10 pb-12">
           <h2 className="text-base font-semibold leading-7 text-gray-900">
