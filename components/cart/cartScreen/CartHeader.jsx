@@ -5,13 +5,13 @@ function CartHeader() {
         <h2 className="font-bold text-gray-500 ">Product name</h2>
       </div>
       <div className="hidden px-4 lg:block lg:w-2/12">
-        <h2 className="font-bold text-gray-500 ">Price</h2>
+        <h2 className="font-bold  text-gray-500 ">Price</h2>
       </div>
-      <div className="hidden md:block px-4 md:w-1/6 lg:w-2/12 ">
+      <div className="hidden text-center md:block px-4 md:w-1/6 lg:w-2/12 ">
         <h2 className="font-bold text-gray-500 ">Quantity</h2>
       </div>
       <div className="hidden md:block px-4 text-right md:w-1/6 lg:w-2/12 ">
-        <h2 className="font-bold text-gray-500 "> Subtotal</h2>
+        <h2 className="font-bold  text-gray-500 "> Subtotal</h2>
       </div>
     </div>
   );

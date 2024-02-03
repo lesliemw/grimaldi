@@ -4,6 +4,7 @@ import { Toaster } from "react-hot-toast";
 import "@styles/globals.css";
 import { AuthProvider } from "./Providers";
 import { getServerSession } from "next-auth";
+import Providers from "./GlobalRedux/provider";
 
 export const metadata = {
   title: "Grimaldi & Co.",
@@ -15,31 +16,33 @@ async function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <AuthProvider session={session}>
-          <Header />
-          <Toaster
-            position="top-center"
-            gutter={12}
-            containerStyle={{ margin: "8px" }}
-            toastOptions={{
-              success: {
-                duration: 3000, //3seconds
-              },
-              error: {
-                duration: 5000, //5seconds
-              },
-              style: {
-                fontSize: "16px",
-                maxWidth: "500px",
-                padding: "16px 24px",
-                backgroundColor: "",
-                color: "",
-              },
-            }}
-          />
-          {children}
-          <Footer />
-        </AuthProvider>
+        <Providers>
+          <AuthProvider session={session}>
+            <Header />
+            <Toaster
+              position="top-center"
+              gutter={12}
+              containerStyle={{ margin: "8px" }}
+              toastOptions={{
+                success: {
+                  duration: 3000, //3seconds
+                },
+                error: {
+                  duration: 5000, //5seconds
+                },
+                style: {
+                  fontSize: "16px",
+                  maxWidth: "500px",
+                  padding: "16px 24px",
+                  backgroundColor: "",
+                  color: "",
+                },
+              }}
+            />
+            {children}
+            <Footer />
+          </AuthProvider>
+        </Providers>
       </body>
     </html>
   );

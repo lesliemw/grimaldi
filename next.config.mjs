@@ -8,6 +8,8 @@ const nextConfig = {
       "m.media-amazon.com",
       "media.gucci.com",
       "www.spacenk.com",
+      "xcdn.next.co.uk",
+      "i.postimg.cc",
     ],
   },
 };
