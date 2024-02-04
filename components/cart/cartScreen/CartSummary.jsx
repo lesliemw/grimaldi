@@ -7,7 +7,7 @@ const cart = [
     src: "https://xcdn.next.co.uk/Common/Items/Default/Default/ItemImages/AltItemShot/315x472/Q42709s.jpg",
     alt: "white shoes",
     name: "Shoes",
-    description: "White heigh heeled shoes",
+    description: "White high heeled shoes",
     price: 250,
   },
 ];
@@ -25,7 +25,7 @@ function CartSummary() {
               {cart?.map((product, i) => (
                 <CartProducts
                   key={i}
-                  src={product?.image}
+                  src={product?.src}
                   alt={product?.alt}
                   name={product?.name}
                   description={product?.description}

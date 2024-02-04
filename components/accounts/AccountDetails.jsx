@@ -1,9 +1,10 @@
-import { getServerSession } from "next-auth";
+"use client";
 import Link from "next/link";
-import { options } from "@app/api/auth/[...nextauth]/options";
+import { useSelector } from "react-redux";
 
-export default async function AccountDetails() {
-  const session = await getServerSession(options);
+export default function AccountDetails() {
+  const user = useSelector((state) => state.user.data);
+
   return (
     <div className="my-40 font-themeFont flex justify-center w-full	">
       <div className="space-y-12 ">
@@ -23,7 +24,7 @@ export default async function AccountDetails() {
               </label>
               <div className="mt-2">
                 <h2>
-                  {session?.user?.fname} {session?.user?.lname}
+                  {user?.fname} {user?.lname}
                 </h2>
               </div>
             </div>
@@ -37,7 +38,7 @@ export default async function AccountDetails() {
                 Email address
               </label>
               <div className="mt-2">
-                <h4>{session?.user?.email}</h4>
+                <h4>{user?.email}</h4>
               </div>
             </div>
 
@@ -50,7 +51,7 @@ export default async function AccountDetails() {
                 Street address
               </label>
               <div className="mt-2">
-                <h4>{session?.user?.streetAddress}</h4>
+                <h4>{user?.streetAddress}</h4>
               </div>
             </div>
 
@@ -63,7 +64,7 @@ export default async function AccountDetails() {
                 City
               </label>
               <div className="mt-2">
-                <h4>{session?.user?.city}</h4>
+                <h4>{user?.city}</h4>
               </div>
             </div>
 
@@ -76,7 +77,7 @@ export default async function AccountDetails() {
                 County / Province
               </label>
               <div className="mt-2">
-                <h4>{session?.user?.county}</h4>
+                <h4>{user?.county}</h4>
               </div>
             </div>
 
@@ -89,7 +90,7 @@ export default async function AccountDetails() {
                 Postal code
               </label>
               <div className="mt-2">
-                <h4>{session?.user?.postalCode}</h4>
+                <h4>{user?.postalCode}</h4>
               </div>
             </div>
           </div>
@@ -102,7 +103,7 @@ export default async function AccountDetails() {
               Country
             </label>
             <div className="mt-2">
-              <h4>{session?.user?.country}</h4>
+              <h4>{user?.country}</h4>
             </div>
           </div>
           <div className="m-6 flex items-center justify-end gap-x-6 ">

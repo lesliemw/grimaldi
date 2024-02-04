@@ -1,3 +1,4 @@
+"use client";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -7,11 +8,11 @@ const initialState = {
 const cartSlice = createSlice({
   name: "cart",
   initialState,
-  reducers: {
-    addToCart: (state, action) => {
+  reducers: (create) => ({
+    addToCart: create.reducer((state, action) => {
       const { _id, name, price, description, qty, size, src } = action.payload;
       // Check if the item already exists in the cart
-      const existingItem = state.find((item) => item.id === _id);
+      const existingItem = state.find((item) => item._id === _id);
 
       if (existingItem) {
         // If the item exists, update the quantity
@@ -20,26 +21,26 @@ const cartSlice = createSlice({
         // If the item doesn't exist, add it to the cart
         state.push({ _id, name, price, qty: 1, description, qty, size, src });
       }
-    },
-    removeFromCart: (state, action) => {
+    }),
+    removeFromCart: create.reducer((state, action) => {
       const cartId = action.payload;
-      return state.filter((item) => item.id !== cartId);
-    },
-    incrementQty: (state, action) => {
+      return state.filter((item) => item._id !== cartId);
+    }),
+    incrementQty: create.reducer((state, action) => {
       const cartId = action.payload;
-      const cartItem = state.find((item) => item.id === cartId);
+      const cartItem = state.find((item) => item._id === cartId);
       if (cartItem) {
         cartItem.qty += 1;
       }
-    },
-    decrementQty: (state, action) => {
+    }),
+    decrementQty: create.reducer((state, action) => {
       const cartId = action.payload;
       const cartItem = state.find((item) => item.id === cartId);
       if (cartItem && cartItem.qty > 1) {
         cartItem.qty -= 1;
       }
-    },
-  },
+    }),
+  }),
 });
 
 export const { addToCart, removeFromCart, incrementQty, decrementQty } =
