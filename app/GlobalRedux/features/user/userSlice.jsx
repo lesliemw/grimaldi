@@ -1,5 +1,3 @@
-"use client";
-
 import { buildCreateSlice, asyncThunkCreator } from "@reduxjs/toolkit";
 
 const createSliceWithThunks = buildCreateSlice({
@@ -9,7 +7,17 @@ const createSliceWithThunks = buildCreateSlice({
 });
 
 const initialState = {
-  user: {},
+  user: {
+    _id: "",
+    fname: "",
+    lname: "",
+    email: "",
+    streetAddress: "",
+    postalCode: "",
+    city: "",
+    county: "",
+    country: "",
+  },
   loading: false,
   error: null,
 };
@@ -20,13 +28,13 @@ const userSlice = createSliceWithThunks({
   reducers: (create) => ({
     fetchUser: create.asyncThunk(
       async (_, thunkApi) => {
-        const response = await fetch("/api/user");
-        if (!response.ok) {
-          throw new Error("Failed to fetch user data");
+        try {
+          const response = await fetch("/api/user");
+          const userData = await response.json();
+          return userData;
+        } catch (error) {
+          return thunkApi.rejectWithValue(error);
         }
-        const userData = await response.json();
-        console.log(userData);
-        return userData;
       },
       {
         pending: (state) => {
@@ -34,7 +42,7 @@ const userSlice = createSliceWithThunks({
         },
         fulfilled: (state, action) => {
           state.loading = false;
-          state.data = action.payload;
+          state.user = action.payload.user;
         },
         rejected: (state, action) => {
           state.loading = false;

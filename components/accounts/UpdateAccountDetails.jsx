@@ -1,7 +1,19 @@
 "use client";
+
+import { fetchUser } from "@app/GlobalRedux/features/user/userSlice";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 // import toast from "react-hot-toast";
 
 export default function UpdateAccountDetails() {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
+
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, [dispatch]);
+
   function handleSubmit(e) {
     // e.preventDefault();
     // toast.promise(saveSettings(settings), {
@@ -39,8 +51,9 @@ export default function UpdateAccountDetails() {
                   type="text"
                   name="fname"
                   id="fame"
+                  defaultValue={user.fname}
                   autoComplete="given-name"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 cursor-pointer"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 cursor-pointer px-2"
                 />
               </div>
             </div>
@@ -57,8 +70,9 @@ export default function UpdateAccountDetails() {
                   type="text"
                   name="lname"
                   id="lname"
+                  defaultValue={user.lname}
                   autoComplete="family-name"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 cursor-pointer"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 cursor-pointer px-2"
                 />
               </div>
             </div>
@@ -75,52 +89,11 @@ export default function UpdateAccountDetails() {
                   id="email"
                   name="email"
                   type="email"
+                  defaultValue={user.email}
                   disabled
                   autoComplete="email"
-                  className="disabled:ring-gray-300 disabled:text-gray-400 disabled:cursor-not-allowed block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="disabled:ring-gray-300 disabled:text-gray-400 disabled:cursor-not-allowed block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-2"
                 />
-              </div>
-            </div>
-
-            <div className="sm:col-span-3">
-              <label
-                htmlFor="country"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Country
-              </label>
-              <div className="mt-2">
-                <select
-                  id="country"
-                  name="country"
-                  autoComplete="country-name"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6 cursor-pointer"
-                >
-                  <option name="Ireland" value="Ireland">
-                    Ireland
-                  </option>
-                  <option name="Northern Ireland" value="Northern Ireland">
-                    Northern Ireland
-                  </option>
-                  <option name="Great Britain" value="Great Britain">
-                    Great Britain
-                  </option>
-                  <option name="France" value="France">
-                    France
-                  </option>
-                  <option name="Spain" value="Spain">
-                    Spain
-                  </option>
-                  <option name="Italy" value="Italy">
-                    Italy
-                  </option>
-                  <option name="Germany" value="Germany">
-                    Germany
-                  </option>
-                  <option name="USA" value="USA">
-                    USA
-                  </option>
-                </select>
               </div>
             </div>
 
@@ -136,8 +109,9 @@ export default function UpdateAccountDetails() {
                   type="text"
                   name="streetAddress"
                   id="streetAddress"
+                  defaultValue={user.streetAddress}
                   autoComplete="street-address"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 cursor-pointer"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 cursor-pointer px-2"
                 />
               </div>
             </div>
@@ -154,8 +128,9 @@ export default function UpdateAccountDetails() {
                   type="text"
                   name="city"
                   id="city"
+                  defaultValue={user.city}
                   autoComplete="address-level2"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 cursor-pointer"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 cursor-pointer px-2"
                 />
               </div>
             </div>
@@ -171,9 +146,10 @@ export default function UpdateAccountDetails() {
                 <input
                   type="text"
                   name="county"
+                  defaultValue={user.county}
                   id="county"
                   autoComplete="address-level1"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 cursor-pointer"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 cursor-pointer px-2"
                 />
               </div>
             </div>
@@ -190,10 +166,53 @@ export default function UpdateAccountDetails() {
                   type="text"
                   name="postalCode"
                   id="postalCode"
+                  defaultValue={user.postalCode}
                   autoComplete="postal-code"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 cursor-pointer"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 cursor-pointer px-2"
                 />
               </div>
+            </div>
+          </div>
+          <div className="sm:col-span-3 mt-6">
+            <label
+              htmlFor="country"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Country
+            </label>
+            <div className="mt-2">
+              <select
+                id="country"
+                name="country"
+                defaultValue={user.country}
+                autoComplete="country-name"
+                className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6 cursor-pointer"
+              >
+                <option name="Ireland" value="Ireland">
+                  Ireland
+                </option>
+                <option name="Northern Ireland" value="Northern Ireland">
+                  Northern Ireland
+                </option>
+                <option name="Great Britain" value="Great Britain">
+                  Great Britain
+                </option>
+                <option name="France" value="France">
+                  France
+                </option>
+                <option name="Spain" value="Spain">
+                  Spain
+                </option>
+                <option name="Italy" value="Italy">
+                  Italy
+                </option>
+                <option name="Germany" value="Germany">
+                  Germany
+                </option>
+                <option name="USA" value="USA">
+                  USA
+                </option>
+              </select>
             </div>
           </div>
         </div>

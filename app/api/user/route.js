@@ -12,7 +12,6 @@ export async function GET(req, res) {
     connectDb();
 
     const user = await User.findOne({ email });
-    console.log(user);
 
     return NextResponse.json({ message: "User found:", user }, { status: 201 });
   } catch (error) {

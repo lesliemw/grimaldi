@@ -1,9 +1,16 @@
 "use client";
+import { fetchUser } from "@app/GlobalRedux/features/user/userSlice";
 import Link from "next/link";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function AccountDetails() {
-  const user = useSelector((state) => state.user.data);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
+
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, [dispatch]);
 
   return (
     <div className="my-40 font-themeFont flex justify-center w-full	">
