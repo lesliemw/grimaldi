@@ -70,7 +70,7 @@ function CartOrderSummary() {
         </div>
         <div className="flex items-center justify-between ">
           <Link
-            href="/orderPlaced"
+            href="/order/orderPlaced"
             className="block  py-4 font-bold text-center text-gray-100 uppercase bg-indigo-500 rounded-md hover:bg-indigo-600 w-full"
           >
             Checkout

@@ -26,6 +26,15 @@ const userSlice = createSliceWithThunks({
   name: "user",
   initialState,
   reducers: (create) => ({
+    updateUser: create.asyncThunk(async (_, thunkApi) => {
+      try {
+        const response = await fetch("/api/user/update");
+        const userData = await response.json();
+        return userData;
+      } catch (error) {
+        return thunkApi.rejectWithValue(error);
+      }
+    }),
     fetchUser: create.asyncThunk(
       async (_, thunkApi) => {
         try {
@@ -53,5 +62,5 @@ const userSlice = createSliceWithThunks({
   }),
 });
 
-export const { fetchUser } = userSlice.actions;
+export const { fetchUser, updateUser } = userSlice.actions;
 export default userSlice.reducer;

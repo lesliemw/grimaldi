@@ -6,9 +6,11 @@ import { IoIosLogOut, IoIosLogIn } from "react-icons/io";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
 
 function Sidebar({ isOpenSidebar, setIsOpenSidebar, isOpenSidebarToggle }) {
-  const { data: session } = useSession();
+  const session = useSession();
+  const user = useSelector((state) => state.user.user);
   const router = useRouter();
 
   function handleSignOut() {
@@ -58,7 +60,9 @@ function Sidebar({ isOpenSidebar, setIsOpenSidebar, isOpenSidebarToggle }) {
                     <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
                       <div className="flex items-start justify-between">
                         <Dialog.Title className="text-lg font-medium text-gray-900">
-                          Menu
+                          {session
+                            ? `Hi, ${user?.fname} ${user?.lname} `
+                            : "Menu"}
                         </Dialog.Title>
                         <div className="ml-3 flex h-7 items-center">
                           <button

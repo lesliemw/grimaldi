@@ -1,33 +1,67 @@
 "use client";
 
-import { fetchUser } from "@app/GlobalRedux/features/user/userSlice";
-import { useEffect } from "react";
+import {
+  fetchUser,
+  updateUser,
+} from "@app/GlobalRedux/features/user/userSlice";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-// import toast from "react-hot-toast";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export default function UpdateAccountDetails() {
+  const router = useRouter();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
+
+  const [formData, setFormData] = useState({
+    fname: user ? user.fname : "",
+    lname: user ? user.lname : "",
+    email: user ? user.email : "",
+    city: user ? user.city : "",
+    country: user ? user.country : "",
+    county: user ? user.county : "",
+    postalCode: user ? user.postalCode : "",
+    streetAddress: user ? user.streetAddress : "",
+  });
 
   useEffect(() => {
     dispatch(fetchUser());
   }, [dispatch]);
 
-  function handleSubmit(e) {
-    // e.preventDefault();
-    // toast.promise(saveSettings(settings), {
-    //   loading: "Saving...",
-    //   success: <b>Account details updated!</b>,
-    //   error: <b>Something went wrong, please try again.</b>,
-    // });
+  function handleInputChange(e) {
+    if (user) {
+      setFormData({
+        ...formData,
+        [e.target.name]: e.target.value,
+      });
+    } else {
+      console.log("No user data");
+    }
+  }
+
+  async function handleUpdateAccount(e) {
+    e.preventDefault();
+    try {
+      await axios.patch("/api/user/update", formData);
+      console.log(formData);
+      toast.success("Account details updated.");
+      router.push("/account");
+    } catch (e) {
+      console.log(e);
+      toast.error(
+        "Could not update account details. Please try again later.",
+        e
+      );
+    }
   }
 
   return (
     <form
       className="m-40 place-center font-themeFont w-auto"
       method="PATCH"
-      onSubmit={handleSubmit}
+      onSubmit={handleUpdateAccount}
     >
       <div className="space-y-12 ">
         <div className="border-b border-gray-900/10 pb-12">
@@ -50,8 +84,9 @@ export default function UpdateAccountDetails() {
                 <input
                   type="text"
                   name="fname"
-                  id="fame"
-                  defaultValue={user.fname}
+                  id="fname"
+                  defaultValue={user?.fname}
+                  onChange={handleInputChange}
                   autoComplete="given-name"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 cursor-pointer px-2"
                 />
@@ -70,7 +105,8 @@ export default function UpdateAccountDetails() {
                   type="text"
                   name="lname"
                   id="lname"
-                  defaultValue={user.lname}
+                  defaultValue={user?.lname}
+                  onChange={handleInputChange}
                   autoComplete="family-name"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 cursor-pointer px-2"
                 />
@@ -89,7 +125,7 @@ export default function UpdateAccountDetails() {
                   id="email"
                   name="email"
                   type="email"
-                  defaultValue={user.email}
+                  defaultValue={user?.email}
                   disabled
                   autoComplete="email"
                   className="disabled:ring-gray-300 disabled:text-gray-400 disabled:cursor-not-allowed block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-2"
@@ -109,7 +145,8 @@ export default function UpdateAccountDetails() {
                   type="text"
                   name="streetAddress"
                   id="streetAddress"
-                  defaultValue={user.streetAddress}
+                  defaultValue={user?.streetAddress}
+                  onChange={handleInputChange}
                   autoComplete="street-address"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 cursor-pointer px-2"
                 />
@@ -128,7 +165,8 @@ export default function UpdateAccountDetails() {
                   type="text"
                   name="city"
                   id="city"
-                  defaultValue={user.city}
+                  defaultValue={user?.city}
+                  onChange={handleInputChange}
                   autoComplete="address-level2"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 cursor-pointer px-2"
                 />
@@ -146,7 +184,8 @@ export default function UpdateAccountDetails() {
                 <input
                   type="text"
                   name="county"
-                  defaultValue={user.county}
+                  defaultValue={user?.county}
+                  onChange={handleInputChange}
                   id="county"
                   autoComplete="address-level1"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 cursor-pointer px-2"
@@ -166,7 +205,8 @@ export default function UpdateAccountDetails() {
                   type="text"
                   name="postalCode"
                   id="postalCode"
-                  defaultValue={user.postalCode}
+                  defaultValue={user?.postalCode}
+                  onChange={handleInputChange}
                   autoComplete="postal-code"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 cursor-pointer px-2"
                 />
@@ -184,7 +224,8 @@ export default function UpdateAccountDetails() {
               <select
                 id="country"
                 name="country"
-                defaultValue={user.country}
+                defaultValue={user?.country}
+                onChange={handleInputChange}
                 autoComplete="country-name"
                 className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6 cursor-pointer"
               >

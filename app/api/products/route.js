@@ -1,20 +1,16 @@
 import { connectDb } from "@dbConfig/db";
 import Item from "@models/ItemModel";
+import { NextResponse } from "next/server";
 
-export default async function handler(req, res) {
-  if (req.method === "GET") {
-    try {
-      const data = await req.json();
-
-      const { _id, name, description, qty, size, price } = data;
-
-      connectDb();
-
-      const item = await Item.findOne({ _id });
-      return data;
-    } catch (error) {
-      console.log(error);
-    }
-  } else if (req.method === "POST") {
+export async function GET(req, res) {
+  try {
+    connectDb();
+    const products = await Item.find();
+    return NextResponse.status(201).json({
+      message: "products found",
+      products,
+    });
+  } catch (error) {
+    console.log(error);
   }
 }

@@ -104,6 +104,7 @@ export default function CartPopper({
                         <Link
                           href={"/cart"}
                           className="flex items-center justify-center rounded-md border border-transparent bg-indigo-500 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-600"
+                          onClick={isOpenCartToggle}
                         >
                           Checkout
                         </Link>

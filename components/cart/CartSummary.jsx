@@ -1,6 +1,6 @@
-import CartHeader from "./CartHeader";
-import CartOrderSummary from "../CartOrderSummary";
-import CartProducts from "./CartProducts";
+import CartHeader from "./cartScreen/CartHeader";
+import CartOrderSummary from "./cartScreen/CartOrderSummary";
+import CartProducts from "./cartScreen/CartProducts";
 
 const cart = [
   {

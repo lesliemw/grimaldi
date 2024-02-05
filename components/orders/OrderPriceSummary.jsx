@@ -60,9 +60,7 @@ function OrderPriceSummary() {
               </p>
             </div>
           </div>
-          <p className="text-lg font-semibold leading-6  text-gray-800">
-            € {shipping}
-          </p>
+          <p className="text-lg font-semibold leading-6  text-gray-800">€ 8</p>
         </div>
         <div className="w-full flex justify-center items-center">
           <button className="hover:bg-black  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 py-5 w-96 md:w-full bg-gray-800 text-base font-medium leading-4 rounded text-white">

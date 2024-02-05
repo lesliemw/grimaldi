@@ -1,6 +1,6 @@
 import OrderPriceSummary from "./OrderPriceSummary";
 import CustomerDetails from "./CustomerDetails";
-import CartOrderSummary from "./CartOrderSummary";
+import CartOrderSummary from "./OrderSummary";
 
 function SuccessfulOrderScreen() {
   return (

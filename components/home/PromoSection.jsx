@@ -1,6 +1,16 @@
+"use client";
+import { fetchUser } from "@app/GlobalRedux/features/user/userSlice";
 import Image from "next/image";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 export default function PromoSection() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, [dispatch]);
+
   return (
     <div className="relative overflow-hidden font-themeFont bg-white">
       <div className="pb-80 pt-16 sm:pb-40 sm:pt-24 lg:pb-48 lg:pt-40">

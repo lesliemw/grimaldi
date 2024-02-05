@@ -7,9 +7,8 @@ const ItemSchema = new Schema(
     size: Array,
     category: String,
     description: String,
-    image: String,
+    src: String,
     alt: String,
-    quantity: { type: Number, required: true },
     price: { type: Number, required: true },
   },
   { timestamps: true }

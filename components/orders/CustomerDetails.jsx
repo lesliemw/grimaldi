@@ -1,7 +1,10 @@
+"use client";
 import { IoDiamondOutline } from "react-icons/io5";
 import { BsEnvelope } from "react-icons/bs";
+import { useSelector } from "react-redux";
 
 function CustomerDetails() {
+  const user = useSelector((state) => state.user.user);
   return (
     <div className="bg-gray-50 w-full h-fit sticky top-[82px] xl:w-96 flex justify-between items-center md:items-start px-4 py-6 md:p-6 xl:p-8 flex-col">
       <h3 className="text-xl  font-semibold leading-5 text-gray-800">
@@ -12,7 +15,7 @@ function CustomerDetails() {
           <div className="flex justify-center w-full md:justify-start items-center space-x-4 py-8 border-b border-gray-200">
             <div className="flex justify-start items-start flex-col space-y-2">
               <p className="text-base  font-semibold leading-4 text-left text-gray-800">
-                Leslie Williams
+                {user.fname} {user.lname}
               </p>
               <p className="text-sm flex items-center text-gray-600">
                 <span className="m-1">
@@ -27,9 +30,7 @@ function CustomerDetails() {
           <div className="flex justify-center text-gray-800  md:justify-start items-center space-x-4 py-4 border-b border-gray-200 w-full">
             <BsEnvelope />
 
-            <p className="cursor-pointer text-sm leading-5 ">
-              l.marie1598@gmail.com
-            </p>
+            <p className="cursor-pointer text-sm leading-5 ">{user.email}</p>
           </div>
         </div>
         <div className="flex justify-between xl:h-full items-stretch w-full flex-col mt-6 md:mt-0">
@@ -39,8 +40,8 @@ function CustomerDetails() {
                 Shipping Address
               </p>
               <p className="w-48 lg:w-full  xl:w-48 text-center md:text-left text-sm leading-5 text-gray-600">
-                123 Anywhere
-                <br /> Crane Hill, Alabama
+                {user.streetAddress}
+                <br /> {user.city} , {user.county}
               </p>
               <p className="w-48 lg:w-full  xl:w-48 text-center md:text-left text-sm leading-5 text-gray-600"></p>
             </div>

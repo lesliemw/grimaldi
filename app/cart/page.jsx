@@ -1,4 +1,4 @@
-import CartSummary from "@components/cart/cartScreen/CartSummary";
+import CartSummary from "@components/cart/CartSummary";
 
 function CartPage() {
   return <CartSummary />;
