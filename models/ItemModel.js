@@ -1,7 +1,6 @@
-const mongoose = require("mongoose");
-const { Schema } = mongoose;
+import mongoose from "mongoose";
 
-const ItemSchema = new Schema(
+const ItemSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     size: Array,
@@ -14,6 +13,6 @@ const ItemSchema = new Schema(
   { timestamps: true }
 );
 
-const ItemModel = mongoose.model("Item", ItemSchema);
+const Item = mongoose.models.Item || mongoose.model("Item", ItemSchema);
 
-module.exports = ItemModel;
+export default Item;

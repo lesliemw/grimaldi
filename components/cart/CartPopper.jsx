@@ -5,12 +5,16 @@ import { Dialog, Transition } from "@headlessui/react";
 import { HiXMark } from "react-icons/hi2";
 import Link from "next/link";
 import fakeData from "@components/fakeStore";
+import { useSelector } from "react-redux";
 
 export default function CartPopper({
   isOpenCart,
   setIsOpenCart,
   isOpenCartToggle,
 }) {
+  const cart = useSelector((state) => state.cart.cart);
+  console.log(cart);
+
   return (
     <Transition.Root show={isOpenCart} onClose={isOpenCartToggle} as={Fragment}>
       <Dialog as="div" className="relative z-20">
@@ -59,22 +63,22 @@ export default function CartPopper({
                       </div>
 
                       <div className="mt-8">
-                        {fakeData.length ? (
+                        {cart?.length ? (
                           <div className="flow-root">
                             <ul
                               role="list"
                               className="-my-6 divide-y divide-gray-200"
                             >
-                              {fakeData?.map((product, i) => (
+                              {cart?.map((item, i) => (
                                 <CartItem
-                                  key={i}
-                                  product={product}
-                                  image={product.image}
-                                  alt={product.alt}
-                                  name={product.name}
-                                  size={product.size}
-                                  price={product.price}
-                                  qty={product.qty || 1}
+                                  key={item._id || i}
+                                  item={item}
+                                  src={item.src}
+                                  alt={item.alt}
+                                  name={item.name}
+                                  size={item.size}
+                                  price={item.price}
+                                  qty={item.qty || 1}
                                 />
                               ))}
                             </ul>
@@ -103,7 +107,8 @@ export default function CartPopper({
                       <div className="mt-6">
                         <Link
                           href={"/cart"}
-                          className="flex items-center justify-center rounded-md border border-transparent bg-indigo-500 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-600"
+                          disabled={!cart?.length}
+                          className="flex items-center justify-center rounded-md border border-transparent bg-indigo-500 disabled:cursor-not-allowed px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-600"
                           onClick={isOpenCartToggle}
                         >
                           Checkout

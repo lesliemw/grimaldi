@@ -32,7 +32,6 @@ const productsSlice = createSliceWithThunks({
         try {
           const response = await fetch("/api/products");
           const productsData = await response.json();
-          console.log(productsData);
           return productsData;
         } catch (error) {
           return thunkApi.rejectWithValue(error);
@@ -44,7 +43,7 @@ const productsSlice = createSliceWithThunks({
         },
         fulfilled: (state, action) => {
           state.loading = false;
-          state.products = action.payload.products;
+          state.products = action.payload;
         },
         rejected: (state, action) => {
           state.loading = false;
