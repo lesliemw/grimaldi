@@ -1,18 +1,22 @@
+"use client";
+import { useSelector } from "react-redux";
 import CartHeader from "./cartScreen/CartHeader";
 import CartOrderSummary from "./cartScreen/CartOrderSummary";
 import CartProducts from "./cartScreen/CartProducts";
 
-const cart = [
-  {
-    src: "https://xcdn.next.co.uk/Common/Items/Default/Default/ItemImages/AltItemShot/315x472/Q42709s.jpg",
-    alt: "white shoes",
-    name: "Shoes",
-    description: "White high heeled shoes",
-    price: 250,
-  },
-];
+// const cart = [
+//   {
+//     src: "https://xcdn.next.co.uk/Common/Items/Default/Default/ItemImages/AltItemShot/315x472/Q42709s.jpg",
+//     alt: "white shoes",
+//     name: "Shoes",
+//     description: "White high heeled shoes",
+//     price: 250,
+//   },
+// ];
 
 function CartSummary() {
+  const cart = useSelector((state) => state.cart.cart);
+
   return (
     <section className="flex items-center mt-20 pb-10 lg:h-screen font-themeFont">
       <div className="justify-center flex-1 px-4 py-6 mx-auto max-w-7xl lg:py-4 md:px-6">
@@ -32,7 +36,7 @@ function CartSummary() {
                   price={product?.price}
                 />
               ))}
-              {!cart.length && (
+              {!cart?.length && (
                 <div className="h-full text-center mt-10">
                   <h1>Nothing has been added to the cart 😥</h1>
                   <p>

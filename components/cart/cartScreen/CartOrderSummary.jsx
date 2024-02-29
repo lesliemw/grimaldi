@@ -1,7 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 function CartOrderSummary() {
+  const cart = useSelector((state) => state.cart.cart);
   return (
     <div className="w-full h-fit sticky top-[82px] px-4 xl:w-4/12">
       <div className="p-6 border border-gray-100   bg-gray-100 md:p-8">
@@ -28,7 +32,7 @@ function CartOrderSummary() {
             className="text-xl font-bold text-gray-700 
                    "
           >
-            € 8{/* € {shipping} */}
+            € 8
           </span>
         </div>
         <div className="flex items-center justify-between pb-4 mb-4 ">
