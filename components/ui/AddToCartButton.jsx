@@ -10,6 +10,7 @@ function AddToCartButton({ product }) {
     try {
       dispatch(addToCart(product));
       toast.success(`${product.name} added to cart`);
+      console.log(`${product.name}`);
     } catch (error) {
       if (error) {
         toast.error("Something has gone wrong. Please try again.");

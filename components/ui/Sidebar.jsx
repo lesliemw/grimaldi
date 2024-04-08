@@ -126,14 +126,14 @@ function Sidebar({ isOpenSidebar, setIsOpenSidebar, isOpenSidebarToggle }) {
 
                     <button
                       className="flex ml-3 items-center"
-                      onClick={session ? handleSignOut : goToLoginPage}
+                      onClick={user ? handleSignOut : goToLoginPage}
                     >
                       {session ? (
                         <IoIosLogOut className="m-3 text-sm md:text-md lg:text-2xl" />
                       ) : (
                         <IoIosLogIn className="m-3 text-sm md:text-md lg:text-2xl" />
                       )}
-                      <span>{session ? "Sign Out" : "Sign In"}</span>
+                      <span>{user ? "Sign Out" : "Sign In"}</span>
                     </button>
                   </div>
                 </Dialog.Panel>
