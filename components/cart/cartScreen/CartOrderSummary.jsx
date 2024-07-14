@@ -42,36 +42,7 @@ function CartOrderSummary() {
             {/* € {(formattedSum - formattedDiscount + shipping).toFixed(2)} */}
           </span>
         </div>
-        <h2 className="text-lg text-gray-600 ">We offer:</h2>
-        <div className="flex items-center mb-4 ">
-          <a href="#">
-            <Image
-              src="https://i.postimg.cc/HW38JkkG/38602-mastercard-curved-icon.png"
-              alt=""
-              height={500}
-              width={500}
-              className="object-cover h-16 mr-2 w-26"
-            />
-          </a>
-          <a href="#">
-            <Image
-              src="https://i.postimg.cc/HW38JkkG/38602-mastercard-curved-icon.png"
-              alt=""
-              height={500}
-              width={500}
-              className="object-cover h-16 mr-2 w-26"
-            />
-          </a>
-          <a href="#">
-            <Image
-              src="https://i.postimg.cc/HL57j0V3/38605-paypal-straight-icon.png"
-              alt=""
-              height={500}
-              width={500}
-              className="object-cover h-16 mr-2 w-26"
-            />
-          </a>
-        </div>
+
         <div className="flex items-center justify-between ">
           <Link
             href="/order/orderPlaced"

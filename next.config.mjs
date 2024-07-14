@@ -10,6 +10,7 @@ const nextConfig = {
       "www.spacenk.com",
       "xcdn.next.co.uk",
       "i.postimg.cc",
+      "upload.wikimedia.org",
     ],
   },
 };
